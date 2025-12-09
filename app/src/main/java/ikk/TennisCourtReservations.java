@@ -16,11 +16,11 @@ import java.util.TreeMap;
 public class TennisCourtReservations {
     static final Map<String, String> COURTS = new TreeMap<>(Map.of(
             "court1", "https://ca-berkeley.civicrec.com/CA/berkeley-ca/catalog/getFacilityHours/dd0760238c4ac06e1c3ebf74d9545eb7/68499/204636/",
-            "court2","https://ca-berkeley.civicrec.com/CA/berkeley-ca/catalog/getFacilityHours/47ece1234a38ba0fef4b785507adc0f0/77102/483972/"
+            "court2", "https://ca-berkeley.civicrec.com/CA/berkeley-ca/catalog/getFacilityHours/47ece1234a38ba0fef4b785507adc0f0/77102/483972/"
     ));
 
     static void main(String[] args) throws IOException, InterruptedException {
-        if(args.length == 0)
+        if (args.length == 0)
             args = new String[]{"0"};
         String date = LocalDate.now().plusDays(Long.parseLong(args[0])).toString();
         IO.println(date);
@@ -37,13 +37,13 @@ public class TennisCourtReservations {
     }
 
     static String getResponse(HttpClient httpClient, String url) throws IOException, InterruptedException {
-        for(int i = 0; i < 2; i++){
+        for (int i = 0; i < 2; i++) {
             HttpRequest req = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .setHeader("Cookie", "PHPSESSID=on7rpa2eut4auev2qbo31j4p6l")
                     .build();
             HttpResponse<String> res = httpClient.send(req, HttpResponse.BodyHandlers.ofString());
-                if(res.body() != null)
+            if (res.body() != null && !res.body().isBlank())
                 return res.body();
         }
         throw new RuntimeException("could NOT obtain response");
