@@ -32,7 +32,7 @@ public class TennisCourtReservations{
             IO.println(court);
             Response res = gson.fromJson(resStr, Response.class);
             for(Hours hours : res.hours)
-                if(hours.description.equals("Adult  Non-Res 6"))
+                if(hours.description.equals("Adult  Non-Res 1"))
                     IO.println(hours.range());
         }
     }
